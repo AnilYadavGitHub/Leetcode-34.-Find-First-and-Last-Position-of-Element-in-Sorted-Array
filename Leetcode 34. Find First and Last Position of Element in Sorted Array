@@ -1,37 +1,18 @@
-#include <iostream>
-#include <vector>
-
-using namespace std;
-
 class Solution {
 public:
     vector<int> searchRange(vector<int>& nums, int target) {
-        int first = -1;
-        int last = -1;
+            
+            auto a = lower_bound(nums.begin() , nums.end() , target);
+            auto b = upper_bound(nums.begin() , nums.end() , target);
 
-        for (int i = 0; i < nums.size(); i++) {
-            if (nums[i] == target) {
-                first = i;
-                break;
-            }
-        }
-        for (int i = nums.size() - 1; i >= 0; i--) {
-            if (nums[i] == target) {
-                last = i;
-                break;
-            }
-        }
-        return {first, last};
+
+            int l = a - nums.begin();
+            int r = b - nums.begin() - 1;
+
+
+        if(l <= r && l < nums.size() && nums[l] == target){
+            return {l , r};
+        }else
+            return {-1 , -1};
     }
 };
-
-int main() {
-    Solution sol;
-    vector<int> nums = {5, 7, 7, 8, 8, 10}; // Example input array
-    int target = 8; // Example target
-    vector<int> result = sol.searchRange(nums, target);
-
-    cout << "First and Last Position: [" << result[0] << ", " << result[1] << "]" << endl;
-
-    return 0;
-}
